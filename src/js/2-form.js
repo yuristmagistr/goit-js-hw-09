@@ -1,4 +1,4 @@
-const storageKey = '"feedback-form-state"'
+const storageKey = 'feedback-form-state'
 const message = document.querySelector('textarea');
 const form = document.querySelector('.feedback-form');
 
@@ -6,11 +6,12 @@ form.addEventListener('input', formInput);
 form.addEventListener('submit', formSubmit)
 
 function formInput() {
-    const emailInp = form.email.value;
-    const messageInp = form.message.value;
+    const emailInp = form.elements.email.value.trim();
+  const messageInp = form.elements.message.value.trim();
+  
     const data = {
-        email: emailInp.trim(),
-        message: messageInp.trim(),
+        email: emailInp,
+        message: messageInp,
     }
     addToLocalStorage(storageKey, data);
 }
@@ -23,18 +24,19 @@ function addToLocalStorage(key, value) {
 
 
 function formSubmit(event) {
-const emailInp = form.elements.email.value;
-const messageInp = form.elements.message.value;
+  event.preventDefault();
+
+const emailInp = form.elements.email.value.trim();
+    const messageInp = form.elements.message.value.trim();
 
   if (emailInp === '' || messageInp === '') {
     return
   }
-    event.preventDefault();
 
 
   const data = {
-    email: emailInp.trim(),
-    message: messageInp.trim(),
+    email: emailInp,
+    message: messageInp,
   };
  
   console.log(data);
